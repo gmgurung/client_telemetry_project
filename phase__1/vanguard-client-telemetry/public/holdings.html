@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Holdings — Vanguard Mock</title>
+    <meta name="description" content="Holdings overview page for the Vanguard mock investment platform." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="telemetry.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <!-- Auth Guard: Protect restricted pages from unauthenticated access -->
+    <script>
+      (function() {
+        const userId = sessionStorage.getItem('userId');
+        if (!userId || userId === 'U-guest') {
+          window.location.href = './login.html';
+        }
+      })();
+    </script>
+
+    <header class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold">V</span>
+          <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+        </a>
+        <div class="flex items-center gap-4 text-sm">
+          <a href="./index.html" class="hover:text-red-700">← Back to Home</a>
+          <a id="helpLink" href="./help.html" class="hover:text-red-700">Help</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10" id="main">
+      <h1 class="text-2xl font-semibold mb-6">Account Overview</h1>
+
+      <!-- Summary Cards -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+          <p class="text-sm text-slate-500">Total Value</p>
+          <p class="mt-1 text-2xl font-semibold">$128,450.00</p>
+        </div>
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+          <p class="text-sm text-slate-500">Day Change</p>
+          <p class="mt-1 text-2xl font-semibold text-green-600">+ $1,240.32</p>
+        </div>
+        <div class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-5 shadow-sm">
+          <p class="text-sm text-slate-500">Cash</p>
+          <p class="mt-1 text-2xl font-semibold">$5,200.00</p>
+        </div>
+      </section>
+
+      <!-- Holdings Table -->
+      <section class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+          <h2 class="text-lg font-semibold">Holdings</h2>
+          <div class="text-sm text-slate-500">(Mock data)</div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm" id="holdingsTable">
+            <thead class="bg-slate-50 dark:bg-slate-800/50">
+              <tr class="text-left">
+                <th class="px-6 py-3 font-medium">Symbol</th>
+                <th class="px-6 py-3 font-medium">Name</th>
+                <th class="px-6 py-3 font-medium text-right">Qty</th>
+                <th class="px-6 py-3 font-medium text-right">Avg Cost</th>
+                <th class="px-6 py-3 font-medium text-right">Price</th>
+                <th class="px-6 py-3 font-medium text-right">Value</th>
+                <th class="px-6 py-3 font-medium text-right">Unrealized P/L</th>
+                <th class="px-6 py-3 font-medium text-right">Allocation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-t border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40" data-symbol="VFIAX">
+                <td class="px-6 py-3 font-medium">VFIAX</td>
+                <td class="px-6 py-3">Vanguard 500 Index Admiral</td>
+                <td class="px-6 py-3 text-right">120.000</td>
+                <td class="px-6 py-3 text-right">$410.00</td>
+                <td class="px-6 py-3 text-right">$415.20</td>
+                <td class="px-6 py-3 text-right">$49,824.00</td>
+                <td class="px-6 py-3 text-right text-green-600">+$624.00</td>
+                <td class="px-6 py-3 text-right">38.8%</td>
+              </tr>
+              <tr class="border-t border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40" data-symbol="VTI">
+                <td class="px-6 py-3 font-medium">VTI</td>
+                <td class="px-6 py-3">Vanguard Total Stock Market ETF</td>
+                <td class="px-6 py-3 text-right">200.000</td>
+                <td class="px-6 py-3 text-right">$260.00</td>
+                <td class="px-6 py-3 text-right">$262.35</td>
+                <td class="px-6 py-3 text-right">$52,470.00</td>
+                <td class="px-6 py-3 text-right text-green-600">+$470.00</td>
+                <td class="px-6 py-3 text-right">40.8%</td>
+              </tr>
+              <tr class="border-t border-slate-200 dark:border-slate-800 cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/40" data-symbol="BND">
+                <td class="px-6 py-3 font-medium">BND</td>
+                <td class="px-6 py-3">Vanguard Total Bond Market ETF</td>
+                <td class="px-6 py-3 text-right">300.000</td>
+                <td class="px-6 py-3 text-right">$74.50</td>
+                <td class="px-6 py-3 text-right">$74.10</td>
+                <td class="px-6 py-3 text-right">$22,230.00</td>
+                <td class="px-6 py-3 text-right text-red-600">−$120.00</td>
+                <td class="px-6 py-3 text-right">17.3%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Notes -->
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">
+        Data shown above is mock data for layout testing only.
+      </p>
+
+      <!-- Statements section (for frustration / workflow telemetry) -->
+      <section class="mt-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 max-w-2xl">
+        <h2 class="text-lg font-semibold mb-2">Statements</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">
+          Download your latest monthly statement (mock).
+        </p>
+        <button
+          id="downloadStatementsBtn"
+          class="px-4 py-2 rounded-xl bg-red-700 text-white hover:bg-red-800 text-sm font-medium"
+        >
+          Download latest statement (PDF)
+        </button>
+        <p id="statementsStatus" class="mt-2 text-xs text-slate-500 dark:text-slate-400"></p>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+      <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+    </footer>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * HOLDINGS PAGE (PORTFOLIO DASHBOARD)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Page Purpose: Displays user's current investment positions and account value.
+       * 
+       * Telemetry Objectives:
+       *   1. Track user engagement with portfolio (which holdings get clicked)
+       *   2. Measure friction in document retrieval (statements download errors/retries)
+       *   3. Detect timeout events (system performance issues)
+       * 
+       * Key Events:
+       *   - page_view: Auto-captured by Telemetry.init()
+       *   - holding_row_click: Track which assets users are interested in
+       *   - statements_click: Measure demand for account documents
+       *   - timeout: Captures system-level failures (critical for SLA monitoring)
+       *   - retry_attempt: Tracks user persistence through errors
+       * 
+       * Business Context:
+       *   Holdings page is the primary post-login destination. High engagement
+       *   here indicates active investors. Frequent statement download failures
+       *   generate support tickets and erode trust.
+       * 
+       * Mock Error Simulation:
+       *   This page demonstrates error tracking with:
+       *     - 15% timeout rate (infrastructure/performance issues)
+       *     - 60% generic error rate (temporary service unavailability)
+       *     - 25% success rate (happy path)
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      // Set current year in footer
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Dynamically append ?from=<page-name> to Help link
+      const help = document.getElementById('helpLink');
+      if (help) {
+        const from = encodeURIComponent(location.pathname.split('/').pop() || 'index.html');
+        help.href = `./help.html?from=${from}`;
+      }
+
+      // ─────────────────────────────────────────────────────────────────────
+      // TELEMETRY INITIALIZATION
+      // ─────────────────────────────────────────────────────────────────────
+      Telemetry.init('holdings');
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Portfolio Row Click Tracking
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Identify which assets users interact with most frequently.
+       * 
+       * Use Case (Phase 2 Analysis):
+       *   - If 80% of clicks are on AAPL, indicates high interest in tech stocks
+       *   - Low-balance holdings with high clicks → users monitoring losers
+       *   - Can correlate with trade.html flows (did click lead to trade?)
+       */
+      document.querySelectorAll('#holdingsTable tbody tr[data-symbol]').forEach(row => {
+        row.addEventListener('click', () => {
+          const symbol = row.dataset.symbol;
+          Telemetry.emit('holding_row_click', { symbol });
+        });
+      });
+
+      const statementsBtn = document.getElementById('downloadStatementsBtn');
+      const statementsStatus = document.getElementById('statementsStatus');
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Statements Download (Error Simulation & Retry Tracking)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Demonstrate timeout/error event capture and retry behavior tracking.
+       * 
+       * Telemetry Strategy:
+       *   - First attempt: Emit error event only
+       *   - Subsequent attempts: Also emit retry_attempt event with attempt number
+       *   - Timeouts also trigger emitTimeout() for dedicated system monitoring
+       * 
+       * Why This Matters:
+       *   - High retry counts indicate UI is confusing (users don't understand error)
+       *   - Timeout patterns reveal infrastructure bottlenecks (SLA violations)
+       *   - Retry success rates measure user persistence/frustration threshold
+       */
+      if (statementsBtn) {
+        let statementsAttemptCount = 0;
+        statementsBtn.addEventListener('click', () => {
+          Telemetry.emit('statements_click');
+          statementsAttemptCount += 1;
+          
+          // Simulate failure scenarios with weighted probabilities
+          const roll = Math.random();
+          const isTimeout = roll < 0.15;           // 15% timeout
+          const isUnavailable = roll >= 0.15 && roll < 0.75;  // 60% error
+          if (isTimeout) {
+            statementsStatus.textContent = 'Request timed out. Please try again.';
+            statementsStatus.className = 'mt-2 text-xs text-red-700';
+            Telemetry.emit('flow_complete', {
+              flowName: 'statements_download',
+              status: 'failure',
+              reason: 'timeout'
+            });
+            Telemetry.emitTimeout('statements_download', { attempt: statementsAttemptCount });
+            if (statementsAttemptCount > 1) {
+              Telemetry.emitRetry('statements_download', statementsAttemptCount, { reason: 'timeout' });
+            }
+          } else if (isUnavailable) {
+            statementsStatus.textContent = 'We could not retrieve your statement. Please try again later.';
+            statementsStatus.className = 'mt-2 text-xs text-red-700';
+            Telemetry.emit('flow_complete', {
+              flowName: 'statements_download',
+              status: 'failure',
+              reason: 'mock_unavailable'
+            });
+            if (statementsAttemptCount > 1) {
+              Telemetry.emitRetry('statements_download', statementsAttemptCount, { reason: 'mock_unavailable' });
+            }
+          } else {
+            // Success case (25%)
+            statementsStatus.textContent = 'Your statement download has started (mock).';
+            statementsStatus.className = 'mt-2 text-xs text-green-700';
+            Telemetry.emit('flow_complete', {
+              flowName: 'statements_download',
+              status: 'success'
+            });
+            statementsAttemptCount = 0;  // Reset on success
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

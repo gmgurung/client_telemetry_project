@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trade — Vanguard Mock</title>
+    <meta
+      name="description"
+      content="Trade page for the Vanguard mock investment platform."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <!-- Auth Guard: Protect restricted pages from unauthenticated access -->
+    <script>
+      (function() {
+        const userId = sessionStorage.getItem('userId');
+        if (!userId || userId === 'U-guest') {
+          window.location.href = './login.html';
+        }
+      })();
+    </script>
+
+    <!-- Header -->
+    <header
+      class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2">
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold"
+            >V</span
+          >
+          <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+        </a>
+
+        <div class="flex items-center gap-4 text-sm">
+          <a href="./account-home-page.html" class="hover:text-red-700">← Back to Home</a>
+          <a id="helpLink" href="./help.html" class="hover:text-red-700">Help</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-10">
+      <h1 class="text-2xl sm:text-3xl font-bold mb-2">Place a Trade</h1>
+      <p class="text-slate-600 dark:text-slate-400 mb-8">
+        Follow the steps below to buy or sell stocks or funds (mock environment).
+      </p>
+
+      <!-- Multi-step progress indicator -->
+      <div class="flex items-center justify-between mb-10 max-w-2xl mx-auto">
+        <div class="flex-1 flex items-center">
+          <div
+            class="w-8 h-8 rounded-full bg-red-700 text-white flex items-center justify-center font-semibold"
+          >
+            1
+          </div>
+          <div id="stepLabel1" class="ml-2 text-sm font-medium">Select Asset</div>
+        </div>
+
+        <div class="flex-1 h-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
+
+        <div class="flex-1 flex items-center">
+          <div
+            class="w-8 h-8 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-semibold"
+          >
+            2
+          </div>
+          <div id="stepLabel2" class="ml-2 text-sm font-medium text-slate-400">Trade Details</div>
+        </div>
+
+        <div class="flex-1 h-px bg-slate-300 dark:bg-slate-700 mx-2"></div>
+
+        <div class="flex-1 flex items-center">
+          <div
+            class="w-8 h-8 rounded-full bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center justify-center font-semibold"
+          >
+            3
+          </div>
+          <div id="stepLabel3" class="ml-2 text-sm font-medium text-slate-400">Review</div>
+        </div>
+      </div>
+
+      <!-- Trade Form -->
+      <form
+        id="tradeForm"
+        class="bg-white dark:bg-slate-900 rounded-2xl shadow p-6 border border-slate-200 dark:border-slate-800"
+      >
+        <!-- Step 1: Select Asset -->
+        <div id="step1">
+          <h2 class="text-xl font-semibold mb-4">Step 1: Select Asset</h2>
+          <div class="space-y-4">
+            <div>
+              <label for="symbol" class="block text-sm font-medium mb-1">Symbol or Fund Name</label>
+              <input
+                id="symbol"
+                name="symbol"
+                type="text"
+                placeholder="e.g., AAPL, VTSAX"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Trade Details -->
+        <div id="step2" class="hidden">
+          <h2 class="text-xl font-semibold mb-4">Step 2: Trade Details</h2>
+          <div class="space-y-4">
+            <div>
+              <label for="action" class="block text-sm font-medium mb-1">Action</label>
+              <select
+                id="action"
+                name="action"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              >
+                <option value="">-- Select --</option>
+                <option value="buy">Buy</option>
+                <option value="sell">Sell</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="quantity" class="block text-sm font-medium mb-1">Quantity</label>
+              <input
+                id="quantity"
+                name="quantity"
+                type="number"
+                min="1"
+                placeholder="e.g., 10"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              />
+              <p class="text-xs text-slate-500 mt-1">
+                (Note: Quantities > 100 will trigger a simulated failure for testing.)
+              </p>
+            </div>
+
+            <div>
+              <label for="price" class="block text-sm font-medium mb-1">Price Type</label>
+              <select
+                id="price"
+                name="price"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              >
+                <option value="">-- Select --</option>
+                <option value="market">Market Order</option>
+                <option value="limit">Limit Order</option>
+              </select>
+            </div>
+
+            <div id="limitPriceContainer" class="hidden">
+              <label for="limitPrice" class="block text-sm font-medium mb-1">Limit Price</label>
+              <input
+                id="limitPrice"
+                name="limitPrice"
+                type="number"
+                step="0.01"
+                placeholder="e.g., 150.00"
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Review -->
+        <div id="step3" class="hidden">
+          <h2 class="text-xl font-semibold mb-4">Step 3: Review & Confirm</h2>
+          <div class="space-y-3 bg-slate-100 dark:bg-slate-800 p-4 rounded-lg">
+            <div class="flex justify-between">
+              <span class="font-medium">Symbol:</span>
+              <span id="reviewSymbol">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Action:</span>
+              <span id="reviewAction">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Quantity:</span>
+              <span id="reviewQuantity">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Price Type:</span>
+              <span id="reviewPriceType">—</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="font-medium">Limit Price:</span>
+              <span id="reviewLimitPrice">—</span>
+            </div>
+          </div>
+        </div>
+
+        <p id="tradeStatus" class="text-sm mt-4"></p>
+
+        <!-- Action Buttons -->
+        <div class="flex gap-3 mt-6">
+          <button
+            type="button"
+            id="cancelBtn"
+            class="px-5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-red-700 hover:text-red-700 transition"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="button"
+            id="backBtn"
+            class="hidden px-5 py-2 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-red-700 hover:text-red-700 transition"
+          >
+            ← Back
+          </button>
+
+          <button
+            type="button"
+            id="nextBtn"
+            class="px-5 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 transition"
+          >
+            Next →
+          </button>
+
+          <button
+            type="button"
+            id="confirmBtn"
+            class="hidden px-5 py-2 rounded-lg bg-red-700 text-white hover:bg-red-800 transition"
+          >
+            Confirm Order
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500 dark:text-slate-400 mt-16">
+      <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+    </footer>
+
+    <!-- Telemetry Script -->
+    <script src="telemetry.js"></script>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * TRADE FLOW (USER JOURNEY INSTRUMENTATION)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Journey Type: Multi-Step Form (High-Value Transaction Flow)
+       * 
+       * Business Context:
+       *   The trade execution flow is a critical revenue-impacting funnel where 
+       *   users place buy/sell orders. Drop-offs here directly correlate with 
+       *   lost trading volume and customer satisfaction issues.
+       * 
+       * Telemetry Schema (Universal Journey Pattern):
+       *   1. flow_start: Marks funnel entry (when page loads)
+       *   2. flow_step: Emitted on each step transition (tracks progression)
+       *   3. flow_abandon: Captures exit (Cancel button or page unload)
+       *   4. flow_complete: Success event (order confirmed)
+       * 
+       * Step Tracking Logic:
+       *   - Step 1: Select Asset (symbol input)
+       *   - Step 2: Trade Details (action, quantity, price type)
+       *   - Step 3: Review & Confirm
+       * 
+       * Abandonment Detection:
+       *   - Explicit: Cancel button click → flow_abandon with reason='user_cancel'
+       *   - Implicit: beforeunload listener in telemetry.js captures page exit
+       *     (form_abandonment event fires if fields were touched but not submitted)
+       * 
+       * Why This Matters:
+       *   - Step-level dwell times reveal UX bottlenecks (e.g., users stuck on Step 2)
+       *   - Abandon reasons enable prioritization (if 80% cancel on price type selector,
+       *     indicates confusing UI or lack of education)
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      // --- Basic setup ---
+      document.getElementById('year').textContent = new Date().getFullYear();
+      const help = document.getElementById('helpLink');
+      if (help) {
+        const from = encodeURIComponent(location.pathname.split('/').pop() || 'trade.html');
+        help.href = `./help.html?from=${from}`;
+      }
+
+      // --- Initialize Telemetry (auto-captures page_view, page_view_end with dwellMs, behavioral metrics) ---
+      Telemetry.init('trade');
+
+      // --- Step flow logic ---
+      const tradeForm = document.getElementById('tradeForm');
+      const statusEl = document.getElementById('tradeStatus');
+
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const step3 = document.getElementById('step3');
+
+      const stepLabel1 = document.getElementById('stepLabel1');
+      const stepLabel2 = document.getElementById('stepLabel2');
+      const stepLabel3 = document.getElementById('stepLabel3');
+
+      const backBtn = document.getElementById('backBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const confirmBtn = document.getElementById('confirmBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+
+      const symbolInput = document.getElementById('symbol');
+      const actionSelect = document.getElementById('action');
+      const quantityInput = document.getElementById('quantity');
+      const priceSelect = document.getElementById('price');
+      const limitContainer = document.getElementById('limitPriceContainer');
+      const limitPriceInput = document.getElementById('limitPrice');
+
+      const reviewSymbol = document.getElementById('reviewSymbol');
+      const reviewAction = document.getElementById('reviewAction');
+      const reviewQuantity = document.getElementById('reviewQuantity');
+      const reviewPriceType = document.getElementById('reviewPriceType');
+      const reviewLimitPrice = document.getElementById('reviewLimitPrice');
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Flow State Management
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * currentStep: Tracks which step user is on (1-indexed for readability)
+       * stepStartTs: Performance timestamp when current step began (for dwell calc)
+       * tradeCompleted: Guards against emitting flow_abandon after flow_complete
+       * FLOW_NAME: Unique identifier for this journey (consistent across all events)
+       * STEP_NAMES: Human-readable labels for ML feature engineering
+       */
+      let currentStep = null;
+      let stepStartTs = performance.now();
+      let tradeCompleted = false;
+      const FLOW_NAME = 'trade';
+      const TOTAL_STEPS = 3;
+      const STEP_NAMES = ['select_asset', 'trade_details', 'review'];
+
+      function setStepLabelActive(labelEl, active) {
+        if (active) {
+          labelEl.classList.remove('text-slate-400');
+        } else {
+          if (labelEl !== stepLabel1) {
+            labelEl.classList.add('text-slate-400');
+          }
+        }
+      }
+
+      function showStep(step) {
+        if (currentStep !== null) {
+          const dwellMs = Math.round(performance.now() - stepStartTs);
+          Telemetry.emit('step_dwell', { 
+            flowName: FLOW_NAME,
+            step: currentStep, 
+            stepName: STEP_NAMES[currentStep - 1],
+            ms: dwellMs 
+          });
+        }
+
+        currentStep = step;
+        stepStartTs = performance.now();
+
+        statusEl.textContent = '';
+        statusEl.className = 'text-sm mt-4';
+
+        step1.classList.toggle('hidden', step !== 1);
+        step2.classList.toggle('hidden', step !== 2);
+        step3.classList.toggle('hidden', step !== 3);
+
+        backBtn.classList.toggle('hidden', step === 1);
+        nextBtn.classList.toggle('hidden', step === 3);
+        confirmBtn.classList.toggle('hidden', step !== 3);
+
+        setStepLabelActive(stepLabel1, step >= 1);
+        setStepLabelActive(stepLabel2, step >= 2);
+        setStepLabelActive(stepLabel3, step >= 3);
+
+        Telemetry.emit('flow_step', {
+          flowName: FLOW_NAME,
+          stepName: STEP_NAMES[step - 1],
+          stepIndex: step,
+          totalSteps: TOTAL_STEPS
+        });
+      }
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * FLOW START: Funnel Entry Point
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Emitted immediately after page load to establish funnel cohort.
+       * All subsequent events (flow_step, flow_abandon, flow_complete) are 
+       * joined to this event via sessionId for conversion rate analysis.
+       */
+      showStep(1);
+      Telemetry.emit('flow_start', { flowName: FLOW_NAME });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * ABANDONMENT: Implicit Exit Detection
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Only fires if user leaves page WITHOUT completing the flow.
+       * tradeCompleted flag prevents double-counting business failures as abandons.
+       */
+      window.addEventListener('beforeunload', () => {
+        if (!tradeCompleted) {
+          Telemetry.sendBeacon('flow_abandon', {
+            flowName: FLOW_NAME,
+            reason: 'page_unload',
+            lastStep: currentStep
+          });
+        }
+      });
+
+      // Price type changes
+      priceSelect.addEventListener('change', () => {
+        const isLimit = priceSelect.value === 'limit';
+        limitContainer.classList.toggle('hidden', !isLimit);
+        Telemetry.emit('price_type_change', { price_type: priceSelect.value });
+      });
+
+      // Field change telemetry
+      symbolInput.addEventListener('blur', () => {
+        const val = symbolInput.value.trim();
+        if (val.length > 0) {
+          Telemetry.emit('field_change', { field: 'symbol', length: val.length });
+        }
+      });
+
+      quantityInput.addEventListener('blur', () => {
+        const q = Number(quantityInput.value);
+        if (!Number.isNaN(q) && q > 0) {
+          Telemetry.emit('field_change', { field: 'quantity', value: q });
+        }
+      });
+
+      actionSelect.addEventListener('change', () => {
+        if (actionSelect.value) {
+          Telemetry.emit('field_change', { field: 'action', value: actionSelect.value });
+        }
+      });
+
+      function validateStep1() {
+        const symbol = symbolInput.value.trim();
+        if (!symbol) {
+          statusEl.textContent = 'Please enter a symbol or fund name.';
+          statusEl.classList.add('text-red-700');
+          Telemetry.emit('trade_step_error', { step: 1, reason: 'missing_symbol' });
+          return false;
+        }
+        return true;
+      }
+
+      function validateStep2() {
+        const missing = [];
+        const action = actionSelect.value;
+        const qty = Number(quantityInput.value);
+        const priceType = priceSelect.value;
+        const limitPrice = priceType === 'limit' ? Number(limitPriceInput.value) : null;
+
+        if (!action) missing.push('action');
+        if (!qty || qty <= 0) missing.push('quantity');
+        if (!priceType) missing.push('price');
+        if (priceType === 'limit' && (!limitPrice || limitPrice <= 0)) {
+          missing.push('limitPrice');
+        }
+
+        if (missing.length > 0) {
+          statusEl.textContent = 'Please fill out all required fields.';
+          statusEl.classList.add('text-red-700');
+          Telemetry.emit('trade_step_error', { step: 2, reason: 'validation', missing_fields: missing });
+          return false;
+        }
+        return true;
+      }
+
+      function updateReview() {
+        const symbol = symbolInput.value.trim();
+        const actionText = actionSelect.value === 'buy' ? 'Buy' : actionSelect.value === 'sell' ? 'Sell' : '—';
+        const qty = quantityInput.value || '—';
+        const priceTypeText = priceSelect.value === 'market' ? 'Market' : priceSelect.value === 'limit' ? 'Limit' : '—';
+        const limitVal = priceSelect.value === 'limit' && limitPriceInput.value ? `$${Number(limitPriceInput.value).toFixed(2)}` : '—';
+
+        reviewSymbol.textContent = symbol || '—';
+        reviewAction.textContent = actionText;
+        reviewQuantity.textContent = qty;
+        reviewPriceType.textContent = priceTypeText;
+        reviewLimitPrice.textContent = limitVal;
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentStep === 1) {
+          if (!validateStep1()) return;
+          showStep(2);
+        } else if (currentStep === 2) {
+          if (!validateStep2()) return;
+          updateReview();
+          showStep(3);
+        }
+      });
+
+      backBtn.addEventListener('click', () => {
+        if (currentStep === 2) {
+          showStep(1);
+        } else if (currentStep === 3) {
+          showStep(2);
+        }
+      });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * ABANDONMENT: Explicit User Exit
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Captures intentional drop-offs via Cancel button.
+       * lastStep indicates where user gave up (critical for prioritizing fixes).
+       * Sets tradeCompleted flag to prevent duplicate beforeunload event.
+       */
+      cancelBtn.addEventListener('click', () => {
+        tradeCompleted = true;
+        Telemetry.emit('flow_abandon', {
+          flowName: FLOW_NAME,
+          reason: 'user_cancel',
+          lastStep: currentStep
+        });
+        tradeForm.reset();
+        limitContainer.classList.add('hidden');
+        showStep(1);
+      });
+
+      let tradeSubmitAttemptCount = 0;
+      
+      confirmBtn.addEventListener('click', () => {
+        statusEl.textContent = '';
+        statusEl.className = 'text-sm mt-4';
+        tradeSubmitAttemptCount += 1;
+
+        if (!validateStep1() || !validateStep2()) {
+          Telemetry.emit('trade_submit_error', { reason: 'validation_on_confirm' });
+          if (tradeSubmitAttemptCount > 1) {
+            Telemetry.emitRetry('trade_submit', tradeSubmitAttemptCount, { reason: 'validation_on_confirm' });
+          }
+          return;
+        }
+
+        const symbol = symbolInput.value.trim();
+        const action = actionSelect.value;
+        const qty = Number(quantityInput.value);
+        const priceType = priceSelect.value;
+        const limitPrice = priceType === 'limit' ? Number(limitPriceInput.value) : null;
+
+        const forcedFail = qty > 100;
+        const randomFail = Math.random() < 0.3;
+        const mockFail = forcedFail || randomFail;
+
+        if (mockFail) {
+          // Business failure: User SUBMITTED but system REJECTED
+          statusEl.textContent = 'Your order could not be submitted. Please review your order details and try again.';
+          statusEl.classList.add('text-red-700');
+          
+          const failureReason = forcedFail ? 'controlled_failure_qty_gt_100' : 'mock_rejection';
+          
+          // Mark as completed (with failure status) to prevent flow_abandon
+          tradeCompleted = true;
+          Telemetry.emit('flow_complete', {
+            flowName: FLOW_NAME,
+            status: 'failure',
+            reason: failureReason,
+            action,
+            quantity: qty,
+            priceType
+          });
+          
+          if (tradeSubmitAttemptCount > 1) {
+            Telemetry.emitRetry('trade_submit', tradeSubmitAttemptCount, { reason: failureReason });
+          }
+        } else {
+          // Success path
+          statusEl.innerHTML = `
+            <div class="rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4">
+              <p class="text-green-700 dark:text-green-400 font-medium mb-3">✓ Order submitted successfully (mock).</p>
+              <div class="flex gap-3">
+                <button
+                  id="placeAnotherTradeBtn"
+                  class="px-4 py-2 rounded-lg bg-red-700 text-white text-sm hover:bg-red-800 transition"
+                >
+                  Place Another Trade
+                </button>
+                <a
+                  href="./holdings.html"
+                  class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-700 text-sm hover:border-red-700 hover:text-red-700 transition inline-flex items-center"
+                >
+                  View Holdings →
+                </a>
+              </div>
+            </div>
+          `;
+          statusEl.classList.add('text-green-700');
+          
+          tradeCompleted = true;
+          Telemetry.emit('flow_complete', {
+            flowName: FLOW_NAME,
+            status: 'success',
+            action,
+            priceType,
+            quantity: qty,
+            limitPrice: priceType === 'limit' ? limitPrice : null
+          });
+          
+          // Wire up "Place Another Trade" button
+          const placeAnotherBtn = document.getElementById('placeAnotherTradeBtn');
+          if (placeAnotherBtn) {
+            placeAnotherBtn.addEventListener('click', () => {
+              Telemetry.emit('post_trade_action', { action: 'place_another_trade' });
+              tradeSubmitAttemptCount = 0;
+              tradeCompleted = false;
+              tradeForm.reset();
+              limitContainer.classList.add('hidden');
+              showStep(1);
+            });
+          }
+          
+          tradeSubmitAttemptCount = 0;
+        }
+      });
+    </script>
+  </body>
+</html>

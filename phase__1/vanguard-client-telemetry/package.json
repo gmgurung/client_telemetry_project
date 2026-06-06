@@ -1,0 +1,39 @@
+{
+  "name": "vanguard-client-telemetry",
+  "version": "1.0.0",
+  "description": "Telemetry system: Phase 1 server + Playwright behavior simulation",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "playwright": "node run.js",
+    "install-browsers": "npx playwright install",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuanxinZ/vanguard-client-telemetry.git"
+  },
+  "keywords": [
+    "telemetry",
+    "playwright",
+    "automation"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuanxinZ/vanguard-client-telemetry/issues"
+  },
+  "homepage": "https://github.com/GuanxinZ/vanguard-client-telemetry#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.996.0",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "playwright": "^1.40.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  }
+}

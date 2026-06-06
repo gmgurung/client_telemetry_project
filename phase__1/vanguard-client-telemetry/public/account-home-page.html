@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanguard Mock — Account Home</title>
+    <meta name="description" content="A mock Vanguard website for learning and demonstration purposes." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="telemetry.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <!-- Auth Guard: Protect restricted pages from unauthenticated access -->
+    <script>
+      (function() {
+        const userId = sessionStorage.getItem('userId');
+        if (!userId || userId === 'U-guest') {
+          window.location.href = './login.html';
+        }
+      })();
+    </script>
+
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:ring-2 focus:ring-blue-500 focus:bg-white focus:text-blue-700 px-3 py-2 absolute left-4 top-4 z-50 rounded"
+    >
+      Skip to content
+    </a>
+
+    <header
+      class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/70 backdrop-blur border-b border-slate-200/70 dark:border-slate-800"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex h-16 items-center justify-between">
+          <a href="./account-home-page.html" class="flex items-center gap-2">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold">V</span>
+            <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+          </a>
+
+          <nav class="flex items-center gap-6" aria-label="Main navigation">
+            <a class="hover:text-red-700" href="./trade.html" data-nav="trade">Trade</a>
+            <a class="hover:text-red-700" href="./holdings.html" data-nav="holdings">Holdings</a>
+            <a class="hover:text-red-700" id="helpLink" href="./help.html" data-nav="help">Help</a>
+          </nav>
+
+          <div class="flex items-center gap-3">
+            <button
+              id="logoutBtn"
+              class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-red-700 hover:text-red-700 transition cursor-pointer"
+              data-nav="logout"
+            >
+              Log Out
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
+          <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
+                Mock Vanguard Website for Client Telemetry Project
+              </h1>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">
+                From here, you can view your
+                <span class="font-medium">Holdings</span>, place a
+                <span class="font-medium">Trade</span>, or visit
+                <span class="font-medium">Help</span> if something isn’t working as expected.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 text-sm text-slate-500 dark:text-slate-400">
+        <div class="flex flex-col sm:flex-row justify-between gap-3">
+          <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+          <nav class="flex gap-4">
+            <a class="hover:text-red-700" href="#">Privacy</a>
+            <a class="hover:text-red-700" href="#">Terms</a>
+            <a class="hover:text-red-700" href="./help.html" data-nav="footer-help">Help</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * ACCOUNT HOME PAGE (POST-LOGIN DASHBOARD)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Page Purpose: Primary landing page after successful authentication.
+       * 
+       * Telemetry Objectives:
+       *   1. Track navigation patterns (which features do users access first?)
+       *   2. Measure engagement depth (do users explore or immediately exit?)
+       *   3. Capture behavioral signals (scroll depth indicates content consumption)
+       * 
+       * Key Events:
+       *   - page_view: Auto-captured by Telemetry.init()
+       *   - nav_click: Tracks which dashboard sections users access
+       *   - Global behavioral: Scroll depth, dwell time, idle time (auto-captured)
+       * 
+       * Business Context:
+       *   Account home is the "hub" of authenticated experience. Navigation patterns
+       *   here reveal feature discoverability and user intent. If 90% of users
+       *   immediately click "Trade", other features may be underutilized or
+       *   poorly positioned.
+       * 
+       * For New Developers:
+       *   This page demonstrates minimal telemetry instrumentation:
+       *     1. Single Telemetry.init() call handles all global capture
+       *     2. Only feature-specific events (nav_click) require explicit tracking
+       *     3. No flow tracking needed (this is a navigation hub, not a journey)
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      // Basic setup
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // ─────────────────────────────────────────────────────────────────────
+      // TELEMETRY INITIALIZATION
+      // ─────────────────────────────────────────────────────────────────────
+      Telemetry.init('account_home');
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Navigation Click Tracking
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Understand which features users access from dashboard.
+       * 
+       * Implementation Pattern:
+       *   - Uses data-nav attribute on clickable elements
+       *   - Targets: 'holdings', 'trade', 'help' (add more as needed)
+       * 
+       * Phase 2 Analysis Use Cases:
+       *   - Conversion funnel: account_home → trade (did they trade?)
+       *   - Feature adoption: % of users who click 'holdings' vs 'trade'
+       *   - Support predictor: nav_click to 'help' = confusion signal
+       */
+      document.querySelectorAll('[data-nav]').forEach((el) => {
+        el.addEventListener('click', () => {
+          Telemetry.emit('nav_click', { target: el.dataset.nav || 'unknown' });
+        });
+      });
+
+      // Dynamic Help link context (tells help page where user came from)
+      const help = document.getElementById('helpLink');
+      if (help) {
+        const from = 'account_home';
+        const url = new URL(help.href, window.location.origin);
+        url.searchParams.set('from', from);
+        help.href = url.pathname + url.search;
+      }
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Logout Handler (Session Cleanup)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Critical Data Integrity Step:
+       *   - MUST clear sessionStorage before navigation to prevent session ID
+       *     inheritance by next user (corrupts telemetry data)
+       *   - Emit logout event for funnel tracking (did user logout vs. abandon?)
+       */
+      const logoutBtn = document.getElementById('logoutBtn');
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          // Track logout intention
+          Telemetry.emit('logout_click');
+          
+          // CRITICAL: Clear session to prevent data contamination
+          sessionStorage.clear();
+          
+          // Redirect to landing page
+          window.location.href = './index.html';
+        });
+      }
+    </script>
+  </body>
+</html>

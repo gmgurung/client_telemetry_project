@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vanguard Mock — Home</title>
+    <meta name="description" content="A mock Vanguard website for learning and demonstration purposes." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="telemetry.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:ring-2 focus:ring-blue-500 focus:bg-white focus:text-blue-700 px-3 py-2 absolute left-4 top-4 z-50 rounded"
+    >
+      Skip to content
+    </a>
+
+    <header class="sticky top-0 z-40 bg-white/80 dark:bg-slate-900/70 backdrop-blur border-b border-slate-200/70 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <div class="flex h-16 items-center justify-between">
+          <a href="#" class="flex items-center gap-2">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold">V</span>
+            <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+          </a>
+
+          <nav class="flex items-center gap-6" aria-label="Main navigation">
+            <a class="hover:text-red-700" href="./index.html">Home</a>
+            <a class="hover:text-red-700" id="helpLink" href="./help.html">Help</a>
+          </nav>
+
+          <div class="flex items-center gap-3">
+            <a
+              id="loginCta"
+              href="./login.html"
+              class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-red-700 hover:text-red-700 transition"
+            >
+              Login
+            </a>
+            <a
+              id="createAccountCta"
+              href="./create-account.html"
+              class="px-4 py-2 rounded-xl bg-red-700 text-white hover:bg-red-800 transition"
+            >
+              Create Account
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
+          <div class="grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
+                Mock Vanguard Website for Client Telemetry Project
+              </h1>
+              <p class="mt-4 text-slate-600 dark:text-slate-300">
+                This project includes four main pages:
+                <span class="font-medium">Login</span>,
+                <span class="font-medium">Create Account</span>,
+                <span class="font-medium">Trade</span>, and
+                <span class="font-medium">Holdings</span>.
+              </p>
+              <div class="mt-6 flex flex-wrap gap-3">
+                <a
+                  id="createAccountCtaMain"
+                  href="./create-account.html"
+                  class="px-5 py-3 rounded-xl bg-red-700 text-white hover:bg-red-800 transition"
+                >
+                  Create an Account
+                </a>
+                <a
+                  id="loginCtaMain"
+                  href="./login.html"
+                  class="px-5 py-3 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-red-700 hover:text-red-700 transition"
+                >
+                  Log In
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-16 border-t border-slate-200 dark:border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 text-sm text-slate-500 dark:text-slate-400">
+        <div class="flex flex-col sm:flex-row justify-between gap-3">
+          <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+          <nav class="flex gap-4">
+            <a class="hover:text-red-700" href="#">Privacy</a>
+            <a class="hover:text-red-700" href="#">Terms</a>
+            <a class="hover:text-red-700" href="./help.html">Help</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * HOME PAGE (LANDING/ENTRY POINT)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Page Purpose: Marketing landing page and primary entry point for unauthenticated users.
+       * 
+       * Telemetry Objectives:
+       *   1. Measure engagement with call-to-action (CTA) buttons
+       *   2. Track which CTAs convert (header vs. hero section)
+       *   3. Capture behavioral signals (scroll depth, time on page, hesitation)
+       * 
+       * Key Events:
+       *   - page_view: Auto-captured by Telemetry.init()
+       *   - cta_click: Explicit tracking for conversion funnel analysis
+       *   - Global behavioral: Rage clicks, scroll depth, idle time (auto-captured)
+       * 
+       * Business Context:
+       *   Home page is the first touch point for new users. High drop-off rates
+       *   here indicate messaging problems or unclear value proposition.
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      // Basic setup
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Dynamic Help link context (tells help page where user came from)
+      const help = document.getElementById('helpLink');
+      if (help) {
+        const from = encodeURIComponent(location.pathname.split('/').pop() || 'index.html');
+        help.href = `./help.html?from=${from}`;
+      }
+
+      // ─────────────────────────────────────────────────────────────────────
+      // TELEMETRY INITIALIZATION
+      // ─────────────────────────────────────────────────────────────────────
+      // Telemetry.init() automatically:
+      //   - Generates/retrieves sessionId and userId
+      //   - Attaches global behavioral listeners (clicks, scrolls, idle, etc.)
+      //   - Emits 'page_view' event (ONCE)
+      //   - Sets up beforeunload handler for page_view_end with dwellMs
+      Telemetry.init('home');
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * CTA CLICK TRACKING (Conversion Funnel)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Measure which CTAs drive conversions (Login vs. Create Account)
+       * 
+       * Tracking Strategy:
+       *   - Header buttons: login_header, create_header
+       *   - Hero section buttons: login_main, create_main
+       * 
+       * Why This Matters:
+       *   If 90% of clicks come from hero section, header nav might need redesign.
+       *   If create_account CTAs get more clicks than login, indicates strong
+       *   acquisition but potential retention issues.
+       */
+      function trackClick(elId, target) {
+        const el = document.getElementById(elId);
+        if (!el) return;
+        el.addEventListener('click', () => {
+          Telemetry.emit('cta_click', { target });
+        });
+      }
+
+      trackClick('loginCta', 'login_header');
+      trackClick('createAccountCta', 'create_header');
+      trackClick('loginCtaMain', 'login_main');
+      trackClick('createAccountCtaMain', 'create_main');
+    </script>
+  </body>
+</html>

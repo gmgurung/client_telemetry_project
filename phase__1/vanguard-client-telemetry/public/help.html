@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Help — Vanguard Mock</title>
+    <meta name="description" content="Help & Support for the Vanguard mock investment platform." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="telemetry.js"></script>
+  </head>
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <!-- Header -->
+    <header
+      class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2">
+          <span
+            class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold"
+            >V</span
+          >
+          <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+        </a>
+        <nav class="flex items-center gap-6 text-sm">
+          <a class="hover:text-red-700" href="./index.html">Home</a>
+          <a class="hover:text-red-700" href="./holdings.html">Holdings</a>
+          <a class="hover:text-red-700" href="./trade.html">Trade</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10" id="main">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="text-sm text-slate-500 mb-6">
+        <ol class="flex items-center gap-2">
+          <li><a href="./index.html" class="hover:underline">Home</a></li>
+          <li class="text-slate-400">/</li>
+          <li aria-current="page" class="text-slate-600">Help</li>
+        </ol>
+      </nav>
+
+      <h1 class="text-3xl font-semibold mb-6">Help & Support</h1>
+
+      <!-- Search -->
+      <section class="mb-10">
+        <form id="helpSearchForm" class="flex gap-3" role="search">
+          <label for="helpSearch" class="sr-only">Search help</label>
+          <input
+            id="helpSearch"
+            name="q"
+            type="search"
+            placeholder="Search help (e.g., reset password)"
+            class="w-full rounded-xl border border-slate-300 dark:border-slate-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+          />
+          <button class="px-5 py-2 rounded-xl bg-red-700 text-white hover:bg-red-800">Search</button>
+        </form>
+      </section>
+
+      <!-- Top FAQs -->
+      <section aria-labelledby="faqs-title" class="mb-12">
+        <h2 id="faqs-title" class="text-xl font-semibold mb-4">Top FAQs</h2>
+
+        <div class="space-y-3" id="faqList">
+          <!-- FAQ Item -->
+          <details
+            class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            data-faq-id="faq-1"
+          >
+            <summary class="cursor-pointer font-medium">How do I reset my password?</summary>
+            <div class="mt-3 text-sm text-slate-600 dark:text-slate-300">
+              Go to <em>Login → Forgot password</em> and follow the steps. Check your spam folder if you
+              don't see the email.
+              <div class="mt-3">
+                <button class="text-red-700 hover:underline text-sm" data-action="faq-solved">
+                  This solved my issue
+                </button>
+              </div>
+            </div>
+          </details>
+
+          <details
+            class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            data-faq-id="faq-2"
+          >
+            <summary class="cursor-pointer font-medium">Why was my trade rejected?</summary>
+            <div class="mt-3 text-sm">
+              Common reasons: insufficient funds, price moved past your limit, or market hours
+              restrictions.
+              <div class="mt-3">
+                <button class="text-red-700 hover:underline text-sm" data-action="faq-solved">
+                  This solved my issue
+                </button>
+              </div>
+            </div>
+          </details>
+
+          <details
+            class="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4"
+            data-faq-id="faq-3"
+          >
+            <summary class="cursor-pointer font-medium">How do I view my statements?</summary>
+            <div class="mt-3 text-sm">
+              Navigate to <em>Holdings → Statements</em> and select a month.
+              <div class="mt-3">
+                <button class="text-red-700 hover:underline text-sm" data-action="faq-solved">
+                  This solved my issue
+                </button>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Contact form -->
+      <section aria-labelledby="contact-title" class="mb-12">
+        <h2 id="contact-title" class="text-xl font-semibold mb-4">Still need help? Contact us</h2>
+        <form
+          id="contactForm"
+          class="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 space-y-4"
+          novalidate
+        >
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label for="cname" class="block text-sm font-medium mb-1">Full Name</label>
+              <input
+                id="cname"
+                name="name"
+                type="text"
+                required
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2"
+              />
+            </div>
+            <div>
+              <label for="cemail" class="block text-sm font-medium mb-1">Email</label>
+              <input
+                id="cemail"
+                name="email"
+                type="email"
+                required
+                class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2"
+              />
+            </div>
+          </div>
+          <div>
+            <label for="ccat" class="block text-sm font-medium mb-1">Issue Category</label>
+            <select
+              id="ccat"
+              name="category"
+              required
+              class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2"
+            >
+              <option value="">Select a category</option>
+              <option value="login">Login/Account</option>
+              <option value="trading">Trading</option>
+              <option value="statements">Statements</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="cdesc" class="block text-sm font-medium mb-1">Describe your issue</label>
+            <textarea
+              id="cdesc"
+              name="description"
+              rows="4"
+              required
+              class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2"
+            ></textarea>
+          </div>
+          <div class="flex items-center gap-3">
+            <button type="submit" class="px-5 py-2 rounded-xl bg-red-700 text-white hover:bg-red-800">
+              Submit
+            </button>
+            <span id="contactStatus" class="text-sm"></span>
+          </div>
+        </form>
+      </section>
+
+      <!-- Escalation options -->
+      <section aria-labelledby="escalation-title" class="mb-8">
+        <h2 id="escalation-title" class="text-xl font-semibold mb-3">Prefer another way?</h2>
+        <div class="flex flex-wrap gap-3 text-sm">
+          <a
+            href="#"
+            class="px-4 py-2 rounded-xl border border-slate-300 hover:border-red-700"
+            data-escalation="chat"
+            >Start Chat (mock)</a
+          >
+          <a
+            href="#"
+            class="px-4 py-2 rounded-xl border border-slate-300 hover:border-red-700"
+            data-escalation="call"
+            >Call Support (mock)</a
+          >
+          <a
+            href="#"
+            class="px-4 py-2 rounded-xl border border-slate-300 hover:border-red-700"
+            data-escalation="secure"
+            data-escalation-type="secure_message"
+            >Send Secure Message (mock)</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500 dark:text-slate-400"
+    >
+      <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+    </footer>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * HELP PAGE (SELF-SERVICE SUPPORT)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Page Purpose: Self-service support center with FAQs, search, and escalation options.
+       * 
+       * Telemetry Objectives:
+       *   1. Capture sentiment-adjacent signals (help visits indicate confusion/frustration)
+       *   2. Measure self-service effectiveness (which FAQs resolve issues?)
+       *   3. Track escalation patterns (when do users give up and request human support?)
+       * 
+       * Key Events:
+       *   - page_view: Auto-captured (with from_page context to identify source of confusion)
+       *   - help_search: Captures search terms (reveals common pain points)
+       *   - faq_open/faq_close: Measures engagement with self-help content
+       *   - faq_solved: User self-reports issue resolution (success metric)
+       *   - contact_open: User starts escalation (indicates self-service failure)
+       *   - contact_submit_error: Form failures compound frustration
+       *   - escalation_click: Critical signal of user giving up (high-value support lead)
+       * 
+       * Business Context:
+       *   Help page visits correlate with user frustration. High traffic here without
+       *   corresponding increase in FAQs "solved" indicates content gaps or usability issues.
+       *   Escalation events predict support ticket volume (early warning system).
+       * 
+       * SDD Reference:
+       *   - §5.2: Sentiment-adjacent events (help visits, escalation clicks)
+       *   - §6.1.1: Form abandonment indicators (contact form)
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // ─────────────────────────────────────────────────────────────────────
+      // CONTEXT PROPAGATION: Track which page sent user to help
+      // ─────────────────────────────────────────────────────────────────────
+      // URL format: help.html?from=trade.html
+      // This enables analysis like: "80% of help visits come from trade page"
+      const params = new URLSearchParams(window.location.search);
+      const fromPage = params.get('from') || 'unknown';
+      Telemetry.init('help', { from_page: fromPage, source: 'help_page' });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Help Search Tracking
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Capture what users are searching for (reveals knowledge gaps).
+       * 
+       * Privacy Note: We only track query length, not actual search terms
+       * (to avoid capturing PII like "How do I recover account for john@email.com")
+       */
+      const helpSearchForm = document.getElementById('helpSearchForm');
+      helpSearchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = (new FormData(helpSearchForm).get('q') || '').trim();
+        Telemetry.emit('help_search', {
+          source: 'help_page',
+          q_len: q.length,
+          has_terms: q.length > 0,
+        });
+        alert('Mock search submitted.');
+      });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * FAQ Interaction Tracking
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Tracked Events:
+       *   - faq_open: User expands an FAQ (measures interest)
+       *   - faq_close: User collapses FAQ (measures engagement duration)
+       *   - faq_solved: User clicks "Did this solve your problem?" YES button
+       * 
+       * Success Metric: faq_solved / faq_open ratio
+       *   High ratio = effective self-service content
+       *   Low ratio = content doesn't answer user's actual question
+       */
+      document.getElementById('faqList').addEventListener(
+        'toggle',
+        (e) => {
+          if (e.target.tagName.toLowerCase() === 'details') {
+            const id = e.target.dataset.faqId;
+            Telemetry.emit(e.target.open ? 'faq_open' : 'faq_close', {
+              source: 'help_page',
+              faq_id: id,
+            });
+          }
+        },
+        true
+      );
+
+      document.getElementById('faqList').addEventListener('click', (e) => {
+        if (e.target.dataset.action === 'faq-solved') {
+          const wrapper = e.target.closest('details');
+          Telemetry.emit('faq_solved', {
+            source: 'help_page',
+            faq_id: wrapper?.dataset.faqId,
+          });
+          e.preventDefault();
+        }
+      });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Contact Form Tracking (Escalation Funnel)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Measure when self-service fails and users need human support.
+       * 
+       * Tracked Events:
+       *   - contact_open: User starts filling contact form (frustration signal)
+       *   - abandon_contact_form: User leaves form without submitting (after 90s)
+       *   - contact_submit_error: Form submission fails (25% mock failure rate)
+       *   - contact_submit_success: Form successfully submitted
+       * 
+       * Business Context:
+       *   Contact form usage = failure of self-service content. High volume here
+       *   indicates need for better FAQs, documentation, or UX improvements.
+       *   
+       *   Form submission errors compound frustration (user already confused, now
+       *   can't even ask for help). Critical UX failure point.
+       */
+      const contactForm = document.getElementById('contactForm');
+      const contactStatus = document.getElementById('contactStatus');
+      let contactOpened = false;
+
+      contactForm.addEventListener('focusin', () => {
+        if (!contactOpened) {
+          contactOpened = true;
+          Telemetry.emit('contact_open', { source: 'help_page' });
+
+          setTimeout(() => {
+            if (contactOpened) {
+              Telemetry.emit('abandon_contact_form', {
+                source: 'help_page',
+                after_s: 90,
+                frustration_signal: true,
+              });
+            }
+          }, 90000);
+        }
+      });
+
+      let contactAttemptCount = 0;
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        contactAttemptCount += 1;
+        const formData = new FormData(contactForm);
+        const category = formData.get('category') || 'unknown';
+
+        const fail = Math.random() < 0.25; // 25% failure to simulate frustration
+        if (fail) {
+          contactStatus.textContent = 'Submission failed. Please try again.';
+          contactStatus.className = 'text-sm text-red-700';
+          Telemetry.emit('flow_complete', {
+            flowName: 'contact_support',
+            status: 'failure',
+            reason: 'submission_error',
+            category,
+            frustration_signal: true
+          });
+          if (contactAttemptCount > 1) {
+            Telemetry.emitRetry('contact_submit', contactAttemptCount, { source: 'help_page', category });
+          }
+        } else {
+          contactStatus.textContent = 'Thanks! We received your message.';
+          contactStatus.className = 'text-sm text-green-700';
+          Telemetry.emit('flow_complete', {
+            flowName: 'contact_support',
+            status: 'success',
+            category
+          });
+          contactOpened = false;
+          contactAttemptCount = 0;
+          contactForm.reset();
+        }
+      });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * Escalation Button Tracking (High-Value Support Signals)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Purpose: Capture when users choose expensive support channels.
+       * 
+       * Escalation Channels:
+       *   - chat: Live chat (medium cost, instant)
+       *   - call: Phone support (high cost, synchronous)
+       *   - secure_message: Async messaging (low cost, delayed)
+       * 
+       * Why This Matters:
+       *   Each escalation click represents:
+       *     1. Failed self-service (cost of content gap)
+       *     2. Incoming support demand (staffing forecast)
+       *     3. High frustration signal (risk of churn)
+       * 
+       *   Phase 2 Analysis: Correlate escalation_click with prior events to
+       *   identify friction points (e.g., 60% of escalations after trade errors)
+       */
+      document.querySelectorAll('[data-escalation]').forEach((a) => {
+        a.addEventListener('click', (e) => {
+          e.preventDefault();
+          Telemetry.emit('escalation_click', {
+            source: 'help_page',
+            channel: a.dataset.escalation,
+            escalation_type: a.dataset.escalationType || 'standard',
+            frustration_signal: true,
+          });
+          alert('Mock escalation triggered.');
+        });
+      });
+    </script>
+  </body>
+</html>
+
+

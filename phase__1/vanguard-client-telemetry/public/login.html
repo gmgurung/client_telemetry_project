@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login — Vanguard Mock</title>
+    <meta name="description" content="Login page for the Vanguard mock investment platform." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="telemetry.js"></script>
+  </head>
+
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+    <header class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 backdrop-blur">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+        <a href="./index.html" class="flex items-center gap-2">
+          <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-red-700 text-white font-bold">V</span>
+          <span class="font-semibold text-lg tracking-tight">Vanguard Mock</span>
+        </a>
+
+        <div class="flex items-center gap-4 text-sm">
+          <a href="./index.html" class="hover:text-red-700">← Back to Home</a>
+          <a id="helpLink" href="./help.html" class="hover:text-red-700">Help</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex items-center justify-center min-h-[80vh] px-4">
+      <div class="w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow p-8 border border-slate-200 dark:border-slate-800">
+        
+        <h1 class="text-2xl font-semibold text-center mb-6">Log In to Your Account</h1>
+
+        <form id="loginForm" class="space-y-5" novalidate>
+          <div>
+            <label for="username" class="block text-sm font-medium mb-1">Username or Email</label>
+            <input id="username" name="username" type="text" required
+              class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700" />
+          </div>
+
+          <div>
+            <label for="password" class="block text-sm font-medium mb-1">Password</label>
+            <input id="password" name="password" type="password" required
+              class="w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700" />
+          </div>
+
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2">
+              <input id="rememberMe" type="checkbox" class="rounded border-slate-300 dark:border-slate-700" /> Remember me
+            </label>
+            <a id="forgotPw" href="#" class="text-red-700 hover:underline">Forgot password?</a>
+          </div>
+
+          <button
+            id="loginBtn"
+            type="submit"
+            class="w-full bg-red-700 hover:bg-red-800 text-white py-2 rounded-lg font-medium transition"
+          >
+            Log In
+          </button>
+
+          <p id="loginError" class="text-sm text-red-700 text-center mt-2 hidden">
+            Invalid username or password. Please try again.
+          </p>
+        </form>
+
+        <p class="text-sm text-center text-slate-500 dark:text-slate-400 mt-6">
+          Don’t have an account?
+          <a href="./create-account.html" class="text-red-700 hover:underline">Create one here</a>
+        </p>
+
+      </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-sm text-slate-500 dark:text-slate-400">
+      <p>© <span id="year"></span> Vanguard Mock. For educational use only.</p>
+    </footer>
+
+    <script>
+      /**
+       * ═══════════════════════════════════════════════════════════════════════
+       * LOGIN FLOW (USER JOURNEY INSTRUMENTATION)
+       * ═══════════════════════════════════════════════════════════════════════
+       * 
+       * Journey Type: Authentication Gate (Critical Path to Application)
+       * 
+       * Business Context:
+       *   Login is the primary entry point to the authenticated experience.
+       *   Drop-offs here prevent users from accessing their accounts, directly
+       *   impacting engagement metrics and support volume (password resets).
+       * 
+       * Telemetry Schema (Universal Journey Pattern):
+       *   1. flow_start: Marks authentication attempt begins
+       *   2. flow_step: Tracks field-level progression (username → password)
+       *   3. flow_abandon: Captures exit (forgot password, page close, or navigation)
+       *   4. flow_complete: Success event (login succeeds)
+       * 
+       * Step Tracking Logic:
+       *   - Step 1: Enter Username (triggered on first focus)
+       *   - Step 2: Enter Password (triggered when password field focused)
+       * 
+       * Abandonment Detection:
+       *   - Explicit: "Forgot password" click → flow_abandon with reason='forgot_password'
+       *   - Implicit: beforeunload listener fires if user exits mid-flow
+       * ═══════════════════════════════════════════════════════════════════════
+       */
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Append ?from=<page> to Help link
+      const help = document.getElementById('helpLink');
+      if (help) {
+        const from = encodeURIComponent(location.pathname.split('/').pop() || 'login.html');
+        help.href = `./help.html?from=${from}`;
+      }
+
+      Telemetry.init('login');
+
+      const FLOW_NAME = 'login';
+      const TOTAL_STEPS = 2;
+      let currentStep = 0;
+      let loginSuccessful = false;
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * FLOW START: Authentication Funnel Entry
+       * ─────────────────────────────────────────────────────────────────────
+       */
+      Telemetry.emit('flow_start', { flowName: FLOW_NAME });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * ABANDONMENT: Implicit Exit (Page Close/Navigation)
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Fires when user exits page without completing login.
+       * currentStep > 0 ensures we only track abandonment after engagement
+       * (prevents false positives from accidental page loads).
+       */
+      window.addEventListener('beforeunload', () => {
+        if (!loginSuccessful && currentStep > 0) {
+          Telemetry.sendBeacon('flow_abandon', {
+            flowName: FLOW_NAME,
+            reason: 'page_unload',
+            lastStep: currentStep
+          });
+        }
+      });
+
+      /**
+       * ─────────────────────────────────────────────────────────────────────
+       * STEP TRACKING: Progressive Disclosure
+       * ─────────────────────────────────────────────────────────────────────
+       * 
+       * Tracks when user advances through authentication fields.
+       * currentStep guard prevents duplicate events on refocus.
+       * stepIndex/totalSteps enable funnel visualization in analytics.
+       */
+      document.getElementById('username').addEventListener('focus', () => {
+        if (currentStep === 0) {
+          currentStep = 1;
+          Telemetry.emit('flow_step', {
+            flowName: FLOW_NAME,
+            stepName: 'enter_username',
+            stepIndex: 1,
+            totalSteps: TOTAL_STEPS
+          });
+        }
+        Telemetry.emit('field_focus', { field: 'username' });
+      });
+
+      document.getElementById('password').addEventListener('focus', () => {
+        if (currentStep === 1) {
+          currentStep = 2;
+          Telemetry.emit('flow_step', {
+            flowName: FLOW_NAME,
+            stepName: 'enter_password',
+            stepIndex: 2,
+            totalSteps: TOTAL_STEPS
+          });
+        }
+        Telemetry.emit('field_focus', { field: 'password' });
+      });
+
+      document.getElementById('rememberMe').addEventListener('change', (e) => {
+        Telemetry.emit('remember_toggle', { value: e.target.checked });
+      });
+
+      document.getElementById('forgotPw').addEventListener('click', () => {
+        Telemetry.emit('forgot_password_click');
+        Telemetry.emit('flow_abandon', {
+          flowName: FLOW_NAME,
+          reason: 'forgot_password',
+          lastStep: currentStep
+        });
+        alert('Mock password reset flow.');
+      });
+
+      const loginForm = document.getElementById("loginForm");
+      const loginError = document.getElementById("loginError");
+      let loginAttemptCount = 0;
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        loginAttemptCount += 1;
+
+        const username = document.getElementById("username").value.trim();
+        const pw = document.getElementById("password").value.trim();
+
+        // Random failure chance (simulating backend issues)
+        const randomFail = Math.random() < 0.20;
+
+        if (randomFail) {
+          loginError.textContent = "System error. Try again."
+          loginError.classList.remove("hidden");
+          
+          loginSuccessful = true; // Mark as completed to prevent flow_abandon
+          Telemetry.emit('flow_complete', {
+            flowName: FLOW_NAME,
+            status: 'failure',
+            reason: 'system_failure'
+          });
+          
+          if (loginAttemptCount > 1) {
+            Telemetry.emitRetry('login', loginAttemptCount, { reason: 'system_failure' });
+          }
+          return;
+        }
+
+        // Mock credential validation
+        if (username === "" || pw === "" || pw.length < 3) {
+          loginError.textContent = "Invalid username or password.";
+          loginError.classList.remove("hidden");
+          
+          loginSuccessful = true; // Mark as completed to prevent flow_abandon
+          Telemetry.emit('flow_complete', {
+            flowName: FLOW_NAME,
+            status: 'failure',
+            reason: 'invalid_credentials'
+          });
+          
+          if (loginAttemptCount > 1) {
+            Telemetry.emitRetry('login', loginAttemptCount, { reason: 'invalid_credentials' });
+          }
+          return;
+        }
+
+        loginSuccessful = true;
+        Telemetry.emit('flow_complete', {
+          flowName: FLOW_NAME,
+          status: 'success',
+          username
+        });
+        window.location.href = "./account-home-page.html";
+      });
+    </script>
+
+  </body>
+</html>
