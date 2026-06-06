@@ -37,6 +37,7 @@ The project requires:
 - Python 3.x
 - AWS credentials with access to project resources
 - Required Python and JavaScript dependencies
+
 Detailed installation instructions are provided in the Code Documentation.
 
 # Running Phase 1
@@ -70,4 +71,5 @@ Detailed startup instructions are available in the Code Documentation.
 The following documents are included with the final submission:
 - Code Documentation
 - Test Cases and Results
+
 Refer to these documents for detailed implementation and operational information.
