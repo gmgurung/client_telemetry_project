@@ -1,14 +1,12 @@
-# client_telemetry_project
-
 # Vanguard Client Telemetry Project
 
 # Team Members
-•	Sabrina Akter
-•	Geralda Koka
-•	Shengyang Dong
-•	Guanxin Zheng
-•	Manish Gurung
-•	Junkai Ge
+- Sabrina Akter
+- Geralda Koka
+- Shengyang Dong
+- Guanxin Zheng
+- Manish Gurung
+- Junkai Ge
 
 # Project Overview
 The Vanguard Client Telemetry Project is a three-phase system designed to collect user interaction data, analyze user behavior using machine learning models, and visualize frustration analytics through an administrative dashboard. The goal of the project is to identify potentially frustrating user experiences and provide insights that can be used to improve website usability.
@@ -73,4 +71,3 @@ The following documents are included with the final submission:
 •	Code Documentation
 •	Test Cases and Results
 Refer to these documents for detailed implementation and operational information.
-<img width="468" height="649" alt="image" src="https://github.com/user-attachments/assets/9ef84afe-bf8a-49d9-80d4-cf9d9f0aca0a" />
