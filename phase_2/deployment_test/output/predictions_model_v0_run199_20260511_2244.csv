@@ -1,0 +1,9 @@
+sessionId,userId,timestamp,frustrationScore,severity,ae_mse,if_score,model_version,scoring_mode,run_tag
+S-pw1-1778539372527-2850,U-playwright-1,2026-05-11T22:42:56Z,6.09,Normal,0.396857,0.056243,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw7-1778539375512-9222,U-playwright-7,2026-05-11T22:42:56Z,5.0,Normal,0.392515,0.10671,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw3-1778539373511-5042,U-playwright-3,2026-05-11T22:42:56Z,5.0,Normal,0.402849,0.122595,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw5-1778539374514-2204,U-playwright-5,2026-05-11T22:42:56Z,5.0,Normal,0.173372,0.132876,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw6-1778539375004-6119,U-playwright-6,2026-05-11T22:42:56Z,5.31,Normal,0.342264,0.087685,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw4-1778539374003-7224,U-playwright-4,2026-05-11T22:42:56Z,5.0,Normal,0.180902,0.11252,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw2-1778539373012-9580,U-playwright-2,2026-05-11T22:42:56Z,5.0,Normal,0.176706,0.116446,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
+S-pw8-1778539376008-7367,U-playwright-8,2026-05-11T22:42:56Z,5.19,Normal,0.410997,0.092279,v0,endpoint:frustration-scoring-endpoint,model_v0_run199_20260511_2244
