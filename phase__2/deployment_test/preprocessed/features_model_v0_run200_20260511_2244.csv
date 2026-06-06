@@ -1,7 +1,0 @@
-sessionId,userId,timestamp,event_count,page_view_count,unique_route_count,click_count,field_change_count,flow_success_count,flow_failure_count,error_event_count,retry_count,rage_click_count,session_duration_ms,total_dwell_ms,avg_inter_event_gap_ms
-S-pw6-1778539375004-6119,U-playwright-6,2026-05-11T22:43:01Z,8.0,2.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,1564.0,6469.0,223.42857
-S-pw2-1778539373012-9580,U-playwright-2,2026-05-11T22:43:02Z,13.0,2.0,3.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,4142.0,5288.0,345.16666
-S-pw4-1778539374003-7224,U-playwright-4,2026-05-11T22:43:02Z,13.0,3.0,4.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,4466.0,6357.0,372.16666
-S-pw7-1778539375512-9222,U-playwright-7,2026-05-11T22:43:02Z,6.0,1.0,2.0,1.0,0.0,0.0,1.0,1.0,0.0,0.0,2645.0,8104.0,529.0
-S-pw5-1778539374514-2204,U-playwright-5,2026-05-11T22:43:03Z,3.0,1.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,35.0,2026.0,17.5
-S-pw8-1778539376008-7367,U-playwright-8,2026-05-11T22:43:03Z,4.0,1.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,39.0,6996.0,13.0

@@ -1,7 +1,0 @@
-sessionId,userId,timestamp,frustrationScore,severity,ae_mse,if_score,model_version,scoring_mode,run_tag
-S-pw6-1778539375004-6119,U-playwright-6,2026-05-11T22:43:01Z,5.0,Normal,0.331023,0.108676,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
-S-pw2-1778539373012-9580,U-playwright-2,2026-05-11T22:43:02Z,6.79,Normal,0.761298,0.028579,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
-S-pw4-1778539374003-7224,U-playwright-4,2026-05-11T22:43:02Z,6.73,Normal,0.564873,0.030798,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
-S-pw7-1778539375512-9222,U-playwright-7,2026-05-11T22:43:02Z,7.89,Medium,1.282616,-0.0156,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
-S-pw5-1778539374514-2204,U-playwright-5,2026-05-11T22:43:03Z,5.68,Normal,0.63745,0.072954,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
-S-pw8-1778539376008-7367,U-playwright-8,2026-05-11T22:43:03Z,5.51,Normal,0.600146,0.079561,v0,endpoint:frustration-scoring-endpoint,model_v0_run200_20260511_2244
