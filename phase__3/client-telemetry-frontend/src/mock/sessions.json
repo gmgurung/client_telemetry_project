@@ -1,0 +1,38 @@
+[
+  {
+    "sessionId": "S1770848729214-5230",
+    "scenario": "frustrated_user",
+    "frustrationScore": 82.4,
+    "severity": "HIGH",
+    "status": "ENDED",
+    "events": 18,
+    "timestamp": "2026-02-11T22:49:47.026Z"
+  },
+  {
+    "sessionId": "S1770849000000-1111",
+    "scenario": "lost_user",
+    "frustrationScore": 61.2,
+    "severity": "MEDIUM",
+    "status": "ENDED",
+    "events": 12,
+    "timestamp": "2026-02-11T23:10:10.000Z"
+  },
+  {
+    "sessionId": "S1770849100000-2222",
+    "scenario": "normal_user",
+    "frustrationScore": 15.8,
+    "severity": "LOW",
+    "status": "ENDED",
+    "events": 6,
+    "timestamp": "2026-02-11T23:20:05.000Z"
+  },
+  {
+    "sessionId": "S1770848800000-3333",
+    "scenario": "frustrated_user",
+    "frustrationScore": 90.1,
+    "severity": "HIGH",
+    "status": "ENDED",
+    "events": 20,
+    "timestamp": "2026-02-11T22:55:00.000Z"
+  }
+]

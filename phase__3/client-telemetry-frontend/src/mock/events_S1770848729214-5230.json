@@ -1,0 +1,66 @@
+[
+  {
+    "serverReceivedAt": "2026-02-11T22:49:47.043Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U43029",
+    "pageRoute": "home",
+    "eventType": "page_view_end",
+    "timestamp": "2026-02-11T22:49:47.026Z",
+    "url": "http://localhost:3000/index.html",
+    "metadata": { "dwellMs": 30038 }
+  },
+  {
+    "serverReceivedAt": "2026-02-11T22:49:47.082Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U43029",
+    "pageRoute": "home",
+    "eventType": "page_view",
+    "timestamp": "2026-02-11T22:49:47.081Z",
+    "url": "http://localhost:3000/index.html",
+    "metadata": {}
+  },
+  {
+    "serverReceivedAt": "2026-02-11T22:49:48.500Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U43029",
+    "pageRoute": "home",
+    "eventType": "cta_click",
+    "timestamp": "2026-02-11T22:49:48.499Z",
+    "url": "http://localhost:3000/index.html",
+    "metadata": { "target": "create_main" }
+  },
+  {
+    "serverReceivedAt": "2026-02-11T22:49:49.209Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U43029",
+    "pageRoute": "create_account",
+    "eventType": "flow_start",
+    "timestamp": "2026-02-11T22:49:49.209Z",
+    "url": "http://localhost:3000/create-account.html",
+    "metadata": { "flowName": "onboarding" }
+  },
+  {
+    "serverReceivedAt": "2026-02-11T22:49:56.280Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U43029",
+    "pageRoute": "create_account",
+    "eventType": "flow_complete",
+    "timestamp": "2026-02-11T22:49:56.279Z",
+    "url": "http://localhost:3000/create-account.html",
+    "metadata": {
+      "flowName": "onboarding",
+      "status": "failure",
+      "reason": "password_mismatch"
+    }
+  },
+  {
+    "serverReceivedAt": "2026-02-11T22:49:59.539Z",
+    "sessionId": "S1770848729214-5230",
+    "userId": "U12411",
+    "pageRoute": "create_account",
+    "eventType": "flow_complete",
+    "timestamp": "2026-02-11T22:49:59.538Z",
+    "url": "http://localhost:3000/create-account.html",
+    "metadata": { "flowName": "onboarding", "status": "success", "hasFullname": true, "emailLen": 3 }
+  }
+]
