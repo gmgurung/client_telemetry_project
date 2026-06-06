@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+tensorflow
+boto3
+sagemaker
+schedule
+joblib
+sqlalchemy
+psycopg2-binary
